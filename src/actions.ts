@@ -2,15 +2,15 @@ import { Input, Scene } from "phaser";
 import KeyCodes = Phaser.Input.Keyboard.KeyCodes;
 
 export type GameAction = 
-    "left" | "right" | "up" | "down" | "select" | "jump";
+    "left" | "right" | "up" | "down" | "select" | "jump"
 
 type GameKeymap = {
     [key in GameAction]: number[]
-};
+}
 
 type GameKeys = {
     [key in GameAction]: Input.Keyboard.Key[]
-};
+}
 
 export type GameKeyManager = {
     isDown: (action: GameAction) => boolean,
@@ -47,5 +47,5 @@ export default function keyManager(scene: Scene): GameKeyManager {
         isJustDown(action: GameAction): boolean {
             return keys[action].some((key) => Input.Keyboard.JustDown(key))
         }
-    };
+    }
 }
