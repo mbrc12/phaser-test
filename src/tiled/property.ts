@@ -1,3 +1,7 @@
+export function parseTiledProperties(obj: any[]): TiledProperty[] {
+    return obj.map((prop) => parseTiledProperty(prop)!)
+}
+
 export function parseTiledProperty(obj: any): TiledProperty {
     const name = obj.name!;
     const type = obj.type!;
@@ -21,9 +25,6 @@ export function parseTiledProperty(obj: any): TiledProperty {
     }
 }
 
-export function parseTiledProperties(obj: any): TiledProperty[] {
-    return (obj as any[]).map((prop) => parseTiledProperty(prop)!)
-}
 
 export type TiledProperty = {
     name: string,

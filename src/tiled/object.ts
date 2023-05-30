@@ -1,4 +1,8 @@
-import { parseTiledProperties, TiledProperty } from "./tiled-property";
+import { parseTiledProperties, TiledProperty } from "./property";
+
+export function parseTiledObjects(obj: any[]): TiledObject[] {
+    return obj.map((item) => parseTiledObject(item))
+}
 
 export function parseTiledObject(obj: any): TiledObject {
     const x: number = obj.x!;

@@ -1,5 +1,5 @@
-import { TiledObject } from "./tiled-object";
-import { TiledProperty } from "./tiled-property";
+import { TiledObject } from "./object";
+import { TiledProperty } from "./property";
 
 export interface TiledLayer {
     height: number,

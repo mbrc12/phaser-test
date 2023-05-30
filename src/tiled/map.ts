@@ -1,5 +1,5 @@
-import { TiledLayer } from "./tiled-layer";
-import { TiledProperty } from "./tiled-property";
+import { TiledLayer } from "./layer";
+import { TiledProperty } from "./property";
 
 export interface TiledMap {
     height: number,

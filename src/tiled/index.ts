@@ -1,2 +1,2 @@
-export { TiledProperty } from './tiled-property';
-export * from './tiled-object';
+export { TiledProperty } from './property';
+export * from './object';
