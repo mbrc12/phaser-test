@@ -58,7 +58,7 @@ const tile_test = {
 }
 
 test('tile-parsing-doesnt-fail', () => {
-    const tile = parseTiledTile(tile_test);
+    const tile = parseTiledTile({ obj: tile_test });
     // console.log(tile);
     expect(tile).not.toBeUndefined();
 });
