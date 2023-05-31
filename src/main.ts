@@ -28,7 +28,9 @@ const config = {
         Main
     ],
     // antialias: false,
-    pixelArt: true
+    pixelArt: true,
+    autoFocus: true,
+    disableContextMenu: true,
 }
 
 const game = new Game(config);
