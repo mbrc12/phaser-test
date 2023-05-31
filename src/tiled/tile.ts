@@ -1,7 +1,11 @@
 import { TiledObject, parseTiledObjects } from "./object";
 import { TiledProperty, parseTiledProperties } from "./property";
 
-export default function parseTiledTile(obj: any): TiledTile {
+export function parseTiledTiles(obj: any[]): TiledTile[] {
+    return obj.map((tile) => parseTiledTile(tile))
+}
+
+export function parseTiledTile(obj: any): TiledTile {
     const id = obj.id;
     const properties = obj.properties && parseTiledProperties(obj.properties!);
     const objects = obj.objectgroup && parseTiledObjects(obj.objectgroup.objects!)
@@ -11,7 +15,7 @@ export default function parseTiledTile(obj: any): TiledTile {
         properties,
         objects
     }
-}
+};
 
 export interface TiledTile {
     id: number,

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tiles-1.json",
+    "activeFile": "tiles-1.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -11,6 +11,10 @@
         "tiles-1.json": {
             "scaleInDock": 1,
             "scaleInEditor": 5.5
+        },
+        "tiles-1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "last.exportedFilePath": "/home/subwave/dev/untitled-game/src/assets/map",
@@ -21,12 +25,14 @@
     "map.tileHeight": 8,
     "map.tileWidth": 8,
     "openFiles": [
-        "tiles-1.json"
+        "tiles-1.json",
+        "tiles-1.tsx"
     ],
     "project": "map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "tiles-1.json"
+        "tiles-1.json",
+        "tiles-1.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
