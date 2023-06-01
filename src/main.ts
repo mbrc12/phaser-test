@@ -1,7 +1,8 @@
 import { HEIGHT, WIDTH } from './globals';
-import Main from './scenes/main';
+// import Main from './scenes/main';
 
 import { Game, WEBGL } from 'phaser';
+import TiledTest from './scenes/tiled-test';
 
 
 ///////////////// GAME SETUP ////////////////////////
@@ -18,14 +19,17 @@ const config = {
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
     physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 300 },
-            // debug: true
+        default: 'matter',
+        matter: {
+            gravity: { y: 0 },
+            debug: {
+                showCollisions: true,
+                showBody: true
+            }
         }
     },
     scene: [
-        Main
+        TiledTest
     ],
     // antialias: false,
     pixelArt: true,
@@ -38,5 +42,5 @@ const game = new Game(config);
 window.addEventListener("resize", () => {
     const zoom = computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight);
     game.scale.setZoom(zoom);
-    console.log(zoom);
+    // console.log(zoom);
 });

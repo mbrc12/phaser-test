@@ -23,10 +23,9 @@ export function parseTiledProperty(obj: any): TiledProperty {
     } else {
         throw new Error("Unrecognized property type");
     }
-}
-
+};
 
 export type TiledProperty = {
     name: string,
     value: string | number | boolean;
-}
+};
