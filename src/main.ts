@@ -18,16 +18,16 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
-    physics: {
-        default: 'matter',
-        matter: {
-            gravity: { y: 0 },
-            debug: {
-                showCollisions: true,
-                showBody: true
-            }
-        }
-    },
+    // physics: {
+    //     default: 'matter',
+    //     matter: {
+    //         gravity: { y: 0 },
+    //         debug: {
+    //             showCollisions: true,
+    //             showBody: true
+    //         }
+    //     }
+    // },
     scene: [
         TiledTest
     ],

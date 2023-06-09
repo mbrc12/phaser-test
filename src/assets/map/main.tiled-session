@@ -1,0 +1,33 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "../map-main/tiles.tsx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "../map-main/tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 11
+        }
+    },
+    "last.exportedFilePath": "/home/subwave/dev/untitled-game/src/assets/map",
+    "last.imagePath": "/home/subwave/dev/untitled-game/src/assets/map-main",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "openFiles": [
+        "../map-main/tiles.tsx"
+    ],
+    "project": "main.tiled-project",
+    "recentFiles": [
+        "../map-main/tiles.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

@@ -16,8 +16,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 117,
-                "y": 74.5
+                "x": 116.875,
+                "y": 74.25
             }
         },
         "level-1.json#tiles-1": {
@@ -50,7 +50,6 @@
     "map.tileHeight": 8,
     "map.tileWidth": 8,
     "openFiles": [
-        "level-1.tmx",
         "level-1.json"
     ],
     "project": "map.tiled-project",

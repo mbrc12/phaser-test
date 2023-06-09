@@ -2041,10 +2041,9 @@ path-parse@^1.0.7:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
-phaser@^3.60.0:
-  version "3.60.0"
-  resolved "https://registry.yarnpkg.com/phaser/-/phaser-3.60.0.tgz#8a555623e64c707482e6321485b4bda84604590d"
-  integrity sha512-IKUy35EnoEVcl2EmJ8WOyK4X8OoxHYdlhZLgRGpNrvD1fEagYffhVmwHcapE/tGiLgyrnezmXIo5RrH2NcrTHw==
+"phaser@https://github.com/photonstorm/phaser":
+  version "3.60.1"
+  resolved "https://github.com/photonstorm/phaser#8c44dffcc7b5e1cfff92c22cfa639068c5f0cdd0"
   dependencies:
     eventemitter3 "^5.0.0"
 
@@ -2069,6 +2068,13 @@ pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+planck@^1.0.0-alpha.4:
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/planck/-/planck-1.0.0-alpha.4.tgz#9ef0df3f45c1a10d10d04ecc7649fd3796ce7bab"
+  integrity sha512-DOqIPDDWc2MIkYTwyi6q4Z8VIX3sYMr4YZXuUFdUwZUslQVzcUJCMrg9WHIYfyNnQP8U8EzbAmlnKa72+WwExA==
+  dependencies:
+    stage-js "^0.9.4"
 
 postcss@^8.4.23:
   version "8.4.24"
@@ -2212,6 +2218,11 @@ stack-utils@^2.0.3:
   integrity sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==
   dependencies:
     escape-string-regexp "^2.0.0"
+
+stage-js@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/stage-js/-/stage-js-0.9.4.tgz#5d31eb8f33f1ca8d21c2043c6d21e47794b715f5"
+  integrity sha512-fNN6rkYD55T4NUxJE71hixXYS9DoyHVX5S8sQcq5yiozX1kqHP/wnByZwFfdAGNZjb5rROJ90zwb0EbM9U2Jqg==
 
 string-length@^4.0.1:
   version "4.0.2"
