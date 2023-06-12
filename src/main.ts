@@ -15,6 +15,7 @@ const config = {
     type: WEBGL,
     width: WIDTH,
     height: HEIGHT,
+    backgroundColor: 0xffaeff,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
