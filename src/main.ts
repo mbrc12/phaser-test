@@ -15,7 +15,7 @@ const config = {
     type: WEBGL,
     width: WIDTH,
     height: HEIGHT,
-    backgroundColor: 0xffaeff,
+    backgroundColor: 0xb0d0b0,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
@@ -43,5 +43,4 @@ const game = new Game(config);
 window.addEventListener("resize", () => {
     const zoom = computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight);
     game.scale.setZoom(zoom);
-    // console.log(zoom);
 });
