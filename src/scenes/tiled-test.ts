@@ -1,51 +1,59 @@
-import { Scene, Tilemaps, Animations } from "phaser";
+import { Scene, Tilemaps, Animations } from "phaser"
 
-import level from "../assets/tilemaps/tilemap-1.json?url";
-import tileset from "../assets/tilemaps/proto-tiles.png?url";
+import * as planck from "planck"
+import { Polygon, Vec2 } from "planck"
 
-import ciRunPng from "../assets/character/ci-run.png?url";
-import ciNormalPng from "../assets/character/ci-normal.png?url";
+import * as bitecs from "bitecs"
 
-import Helpers from "./tilemap-helpers"
+import level from "../assets/tilemaps/tilemap-1.json?url"
+import tileset from "../assets/tilemaps/proto-tiles.png?url"
+
+import ciRunPng from "../assets/character/ci-run.png?url"
+import ciNormalPng from "../assets/character/ci-normal.png?url"
+
+import { GameScene, TilemapHelpers, PhysicsHelpers } from "../helpers"
+import { GRAVITY, PHYSICS_STEP, PLAYER_LAYER, PLAYER_MASK } from "../globals"
+
 
 // import ciRunJson from "../assets/character/ci-run.json?url";
 
-import * as planck from "planck";
-import { Vec2 } from "planck";
 
-export default class TiledTest extends Scene {
+export default class TiledTest extends Scene implements GameScene {
 
     map!: Tilemaps.Tilemap;
     tileset!: Tilemaps.Tileset;
     world!: planck.World;
+    ecs!: bitecs.IWorld;
 
     constructor() {
-        super('tiled-test');
-        this.world = planck.World(new Vec2(0, 0));
+        super('tiled-test')
+        this.world = planck.World(new Vec2(0, GRAVITY))
+        this.ecs = bitecs.createWorld()
     }
 
     preload() {
-        this.load.tilemapTiledJSON('level', level);
-        this.load.image('tileset', tileset);
-        this.load.image('ci-normal', ciNormalPng);
-        this.load.spritesheet('ci-run', ciRunPng, {frameWidth: 24});
+        this.load.tilemapTiledJSON('level', level)
+        this.load.image('tileset', tileset)
+        this.load.image('ci-normal', ciNormalPng)
+        this.load.spritesheet('ci-run', ciRunPng, {frameWidth: 24})
     }
 
     create() {
-        this.map = this.make.tilemap({ key: 'level' });
-        this.tileset = this.map.addTilesetImage('prototype-tiles', 'tileset')!;
-        const layer = this.map.createLayer("tile-layer-1", this.tileset, 0, 0)!;
-
-        console.log(this.map.images)
-
-        Helpers.extractCollisionObjects(this, layer)
-
-        Helpers.debugRender(this)
-
-        const objects = new Map<string, Phaser.Types.Tilemaps.TiledObject>();
-        this.map.getObjectLayer("objects")!.objects.forEach((obj) => {
-            objects.set(obj.name, obj);
+        this.time.addEvent({
+            delay: PHYSICS_STEP * 1000.0, // milliseconds
+            loop: true,
+            callback: this.physicsUpdate,
+            callbackScope: this
         })
+
+        this.map = this.make.tilemap({ key: 'level' })
+        this.tileset = this.map.addTilesetImage('prototype-tiles', 'tileset')!
+        const layer = this.map.createLayer("tile-layer-1", this.tileset, 0, 0)!
+
+        // console.log(this.map.images)
+
+        TilemapHelpers.extractCollisionObjects(this, layer)
+        const objects = TilemapHelpers.getObjectLayer("objects", this.map)
        
         const playerStart = {
             x: objects.get("player-start")!.x!,
@@ -57,18 +65,39 @@ export default class TiledTest extends Scene {
             frames: this.anims.generateFrameNumbers("ci-run", {start: 0, end: 5}),
             frameRate: 15,
             repeat: -1
-        }) as Animations.Animation;
+        }) as Animations.Animation
 
 
-        let ciSprite = this.add.sprite(playerStart.x, playerStart.y, "ci-normal");
-        ciSprite.anims.play(ciRun);
-        ciSprite.anims.stopAfterDelay(3000);
+        let ciSprite = this.add.sprite(playerStart.x, playerStart.y, "ci-normal")
+        ciSprite.anims.play(ciRun)
+        ciSprite.anims.stopAfterDelay(3000)
         ciSprite.on("animationstop", function(this: any) {
             this.setTexture("ci-normal");
-        });
+        })
+
+        ciSprite.setOrigin(0, 0)
+
+        let ciBody = this.world.createDynamicBody({
+            position: new Vec2(playerStart.x, playerStart.y),
+        })
+
+        ciBody.createFixture({
+            shape: new Polygon([new Vec2(0, 0), new Vec2(0, 24), new Vec2(24, 24), new Vec2(24, 0)]),
+            filterCategoryBits: PLAYER_LAYER,
+            filterMaskBits: PLAYER_MASK,
+            density: 1,
+        })
+
         // this.cameras.main.centerOn(0, 0);
     }
 
     update(_time: number, _delta: number): void {
+        PhysicsHelpers.debugRender(this)
+    }
+
+    physicsUpdate(): void {
+        if (this.world) {
+            this.world.step(PHYSICS_STEP)
+        }
     }
 }
