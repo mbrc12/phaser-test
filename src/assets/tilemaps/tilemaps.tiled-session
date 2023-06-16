@@ -16,8 +16,8 @@
             "scale": 2.206770833333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 240.39650696247347,
-                "y": 158.6027849893793
+                "x": 239.9433561482181,
+                "y": 159.73566202501775
             }
         },
         "tilemap-1.json#prototype-tiles": {
@@ -45,9 +45,9 @@
     ],
     "project": "tilemaps.tiled-project",
     "recentFiles": [
+        "prototype-tiles.tsx",
         "tilemap-1.json",
-        "tilemap-1.tmx",
-        "prototype-tiles.tsx"
+        "tilemap-1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

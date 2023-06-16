@@ -1,6 +1,8 @@
 export const WIDTH = 480
 export const HEIGHT = 320
 
+export const BG_COLOR = 0x0ccddff
+
 // step is in seconds!
 export const PHYSICS_STEP = 1/120.0 
 export const GRAVITY = 90

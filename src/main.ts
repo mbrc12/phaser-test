@@ -1,4 +1,4 @@
-import { HEIGHT, WIDTH } from './globals';
+import { BG_COLOR, HEIGHT, WIDTH } from './globals';
 // import Main from './scenes/main';
 
 import { Game, WEBGL } from 'phaser';
@@ -15,7 +15,7 @@ const config = {
     type: WEBGL,
     width: WIDTH,
     height: HEIGHT,
-    backgroundColor: 0xb0d0b0,
+    backgroundColor: BG_COLOR,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
