@@ -2,7 +2,8 @@ import { BG_COLOR, HEIGHT, WIDTH } from './globals';
 // import Main from './scenes/main';
 
 import { Game, WEBGL } from 'phaser';
-import TiledTest from './scenes/tiled-test';
+// import TiledTest from './scenes/tiled-test';
+import ECSTest from './scenes/ecstest';
 
 
 ///////////////// GAME SETUP ////////////////////////
@@ -19,18 +20,8 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
-    // physics: {
-    //     default: 'matter',
-    //     matter: {
-    //         gravity: { y: 0 },
-    //         debug: {
-    //             showCollisions: true,
-    //             showBody: true
-    //         }
-    //     }
-    // },
     scene: [
-        TiledTest
+        ECSTest
     ],
     // antialias: false,
     pixelArt: true,

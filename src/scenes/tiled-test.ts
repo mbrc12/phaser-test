@@ -1,4 +1,4 @@
-import { Scene, Tilemaps, Animations } from "phaser"
+import { Tilemaps, Animations } from "phaser"
 
 import * as planck from "planck"
 import { Polygon, Vec2 } from "planck"
@@ -11,24 +11,26 @@ import tileset from "../assets/tilemaps/proto-tiles.png?url"
 import ciRunPng from "../assets/character/ci-run.png?url"
 import ciNormalPng from "../assets/character/ci-normal.png?url"
 
-import { GameScene, TilemapHelpers, PhysicsHelpers } from "../helpers"
+import { TilemapHelpers, PhysicsHelpers, GameScene, Store } from "../helpers"
 import { GRAVITY, PHYSICS_STEP, PLAYER_LAYER, PLAYER_MASK } from "../globals"
 
 
 // import ciRunJson from "../assets/character/ci-run.json?url";
 
 
-export default class TiledTest extends Scene implements GameScene {
+export default class TiledTest extends GameScene {
 
     map!: Tilemaps.Tilemap;
     tileset!: Tilemaps.Tileset;
-    world!: planck.World;
-    ecs!: bitecs.IWorld;
+    world: planck.World;
+    ecs: bitecs.IWorld;
+    store: Store
 
     constructor() {
         super('tiled-test')
-        this.world = planck.World(new Vec2(0, GRAVITY))
+        this.world = planck.World(Vec2(0, GRAVITY))
         this.ecs = bitecs.createWorld()
+        this.store = new Store()
     }
 
     preload() {

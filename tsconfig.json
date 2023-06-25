@@ -10,9 +10,13 @@
     "esModuleInterop": true,
     "types": ["vite/client", "@types/jest"],
     "noEmit": true,
-    "noUnusedLocals": true,
+
+    // "strict": true,
+
+    // "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "strictNullChecks": true
   },
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.tsx"] // remember that this is to exclude tiled xml files.
