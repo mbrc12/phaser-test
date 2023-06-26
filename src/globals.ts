@@ -1,11 +1,11 @@
 export const WIDTH = 480
 export const HEIGHT = 320
 
-export const BG_COLOR = 0x0ccddff
+export const BG_COLOR = 0x1c1c1c //0x0ccddff
 
 // step is in seconds!
 export const PHYSICS_STEP = 1/120.0 
-export const GRAVITY = 90
+export const GRAVITY = 300
 
 export const DEBUG_STROKE_COLOR = 0x35778F
 export const DEBUG_STROKE_COLOR_ASLEEP = 0xCF7735

@@ -8,11 +8,14 @@ export type GameQuery<T extends unknown[]> = {
     ask: () => number[]
 }
 
-export type RawSystem<T extends unknown[]> = (scene: GameScene, ...components: [...T]) => void
+export type RawSystem<T extends unknown[], U extends unknown[]> = 
+    (scene: GameScene, components: T, resources: U) => void
 
-export type System<T extends unknown[]> = {
+export type System<T extends unknown[], U extends unknown[]> = {
     query: GameQuery<T>,
-    callback: RawSystem<T>
+    resources: ResourceList<U>,
+    isStatic: boolean
+    callback: RawSystem<T, U>
 }
 
 export class StoredComponent<T> {
@@ -42,3 +45,22 @@ export class StoredComponent<T> {
 
 // [T1, T2] => [StoredComponent<T1>, StoredComponent<T2>]
 export type StoredComponentList<T extends unknown[]> = { [K in keyof T]: StoredComponent<T[K]> }
+
+
+
+export class Resource<U> {
+    item?: U
+
+    get(): U {
+        if (!this.item) {
+            throw new Error("Resource not set yet!")
+        }
+        return this.item
+    }
+
+    set(item: U) {
+        this.item = item
+    }
+}
+
+export type ResourceList<U extends unknown[]> = { [K in keyof U]: Resource<U[K]> }
