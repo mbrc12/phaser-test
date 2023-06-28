@@ -22,7 +22,8 @@ const keySpec = {
 type KT = typeof keySpec
 
 type Push = {
-    push: boolean
+    push: boolean,
+    enabled: boolean
 }
 
 
@@ -54,13 +55,18 @@ export default class ECSTest extends GameScene {
     preload() {
         this.load.image("tree", Assets.art.tree)
         this.load.audio("click", Assets.audio.click)
+
+        this.cameras.main.setPostPipeline(ShaderFX)
+
+        const renderer = this.game.renderer as Phaser.Renderer.WebGL.WebGLRenderer
+        renderer.pipelines.addPostPipeline("shader", ShaderFX)
     }
 
     create() {
         super.create()
         
         this.rKeys.set(setupKeyboardInput(this, keySpec))
-        this.rPush.set({ push: false })
+        this.rPush.set({ push: false, enabled: true })
 
         // this.time.addEvent({
         //     delay: 5000.0,
@@ -108,6 +114,7 @@ export default class ECSTest extends GameScene {
         }
 
         PhysicsHelpers.addWalls(this)
+        this.cameras.main.setPostPipeline("shader")
 
         // this.cameras.main.setPostPipeline(new Renderer.WebGL.Pipelines.PostFXPipeline({
         //     game: this.game,
@@ -115,7 +122,6 @@ export default class ECSTest extends GameScene {
         //     // vertShader: bloomVert,
         //     fragShader: vignetteFrag
         // }))
-        this.cameras.main.setPostPipeline(ShaderFX)
     }
 
     update(time: number, delta: number): void {
@@ -150,15 +156,21 @@ function fpsSystem(scene: GameScene, [text]: [GameObjects.Text], []: []) {
 }
 
 function setPush(_scene: GameScene, []: [], [keys, push]: [KeyboardManager<KT>, Push]) {
-    const down = keys.space.justDown()
-    if (!push.push && down) {
+    const down = keys.space.down()
+    if (push.enabled && down) {
         push.push = true
-    } else {
-        push.push = false
+        push.enabled = false
+        return
+    }
+    
+    push.push = false
+
+    if (!push.enabled && !down) {
+        push.enabled = true
     }
 }
 
-export class ShaderFX extends Renderer.WebGL.Pipelines.PostFXPipeline {
+export class ShaderFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPipeline {
 
     resolution = {x: 0, y: 0}
 
@@ -179,3 +191,4 @@ export class ShaderFX extends Renderer.WebGL.Pipelines.PostFXPipeline {
         this.set2f('iResolution', this.resolution.x, this.resolution.y)
     }
 }
+
