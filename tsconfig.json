@@ -2,13 +2,13 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "scripthost"],
+    "lib": ["es6", "DOM", "scripthost", "dom.iterable"],
     "moduleResolution": "Node",
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "@types/jest"],
+    "types": ["vite/client", "@types/jest" ],
     "noEmit": true,
 
     // "strict": true,
@@ -19,5 +19,5 @@
     "strictNullChecks": true
   },
   "include": ["./src/**/*"],
-  "exclude": ["./src/**/*.tsx"] // remember that this is to exclude tiled xml files.
+  "exclude": ["./src/**/*.tsx"], // remember that this is to exclude tiled xml files.
 }

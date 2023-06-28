@@ -1,9 +1,13 @@
 import * as bitecs from "bitecs"
-import { GameObjects, Input } from "phaser"
+import { GameObjects, Input, Renderer } from "phaser"
 import { Polygon, Vec2, Body } from "planck"
 import { Assets } from "../assets"
 import { DIAGNOSTICS_DEPTH, GRAVITY, HEIGHT, TREE_LAYER, TREE_MASK, WIDTH } from "../globals"
 import { GameScene, KeyboardManager, PhysicsHelpers, setupKeyboardInput, StoredComponent, Resource } from "../helpers"
+
+// import bloomVert from "../assets/shaders/bloom-vert.glsl?raw"
+// import bloomFrag from "../assets/shaders/bloom-frag.glsl?raw"
+import vignetteFrag from "../assets/shaders/vignette-frag.glsl?raw"
 
 import KeyCodes = Input.Keyboard.KeyCodes
 
@@ -44,6 +48,7 @@ export default class ECSTest extends GameScene {
         this.system([this.cText], [], fpsSystem)
         this.system([this.cBody], [this.rPush], bodyKeySystem, { physics: true })
         this.system([], [this.rKeys, this.rPush], setPush, { physics: true, static: true })
+
     }
 
     preload() {
@@ -73,7 +78,7 @@ export default class ECSTest extends GameScene {
         this.cText.insertIn(eid, text)
         
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 100; i++) {
             const eid = bitecs.addEntity(this.ecs)
 
             const x = Math.random() * WIDTH
@@ -83,8 +88,8 @@ export default class ECSTest extends GameScene {
             sprite.setOrigin(0, 0)
 
             // const bloom = sprite.preFX!.addBloom()
-            // bloom.strength = 0.5
-            // bloom.blurStrength = 0.5
+            // bloom.strength = 1
+            // bloom.blurStrength = 1
 
             this.cSprite.insertIn(eid, sprite)
 
@@ -103,6 +108,14 @@ export default class ECSTest extends GameScene {
         }
 
         PhysicsHelpers.addWalls(this)
+
+        // this.cameras.main.setPostPipeline(new Renderer.WebGL.Pipelines.PostFXPipeline({
+        //     game: this.game,
+        //     renderTarget: true,
+        //     // vertShader: bloomVert,
+        //     fragShader: vignetteFrag
+        // }))
+        this.cameras.main.setPostPipeline(ShaderFX)
     }
 
     update(time: number, delta: number): void {
@@ -142,5 +155,27 @@ function setPush(_scene: GameScene, []: [], [keys, push]: [KeyboardManager<KT>, 
         push.push = true
     } else {
         push.push = false
+    }
+}
+
+export class ShaderFX extends Renderer.WebGL.Pipelines.PostFXPipeline {
+
+    resolution = {x: 0, y: 0}
+
+    constructor(game: Phaser.Game) {
+        super({
+            game,
+            name: 'Shader',
+            fragShader: vignetteFrag,
+        })
+        console.log(vignetteFrag)
+    }
+
+    onPreRender(): void {
+        this.resolution.x = this.game.canvas.width
+        this.resolution.y = this.game.canvas.height
+
+        console.log(this.resolution.x, this.resolution.y)
+        this.set2f('iResolution', this.resolution.x, this.resolution.y)
     }
 }

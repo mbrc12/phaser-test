@@ -3,7 +3,8 @@ import { BG_COLOR, HEIGHT, WIDTH } from './globals';
 
 import { Game, WEBGL } from 'phaser';
 // import TiledTest from './scenes/tiled-test';
-import ECSTest from './scenes/ecstest';
+import ECSTest, { ShaderFX } from './scenes/ecstest';
+import TiledTest from './scenes/tiled-test';
 
 
 ///////////////// GAME SETUP ////////////////////////
@@ -21,15 +22,21 @@ const config = {
     zoom: computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight),
     canvas,
     scene: [
+        // TiledTest
         ECSTest
     ],
     // antialias: false,
     pixelArt: true,
     autoFocus: true,
     disableContextMenu: true,
+
+    // pipeline: { name: 'ShaderFX', pipeline: ShaderFX },
 }
 
 const game = new Game(config);
+
+//// resize event handler
+
 
 window.addEventListener("resize", () => {
     const zoom = computeZoom(WIDTH, HEIGHT, window.innerWidth, window.innerHeight);

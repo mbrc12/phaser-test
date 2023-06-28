@@ -1,9 +1,6 @@
 import { Tilemaps, Animations } from "phaser"
 
-import * as planck from "planck"
 import { Polygon, Vec2 } from "planck"
-
-import * as bitecs from "bitecs"
 
 import level from "../assets/tilemaps/tilemap-1.json?url"
 import tileset from "../assets/tilemaps/proto-tiles.png?url"
@@ -11,8 +8,8 @@ import tileset from "../assets/tilemaps/proto-tiles.png?url"
 import ciRunPng from "../assets/character/ci-run.png?url"
 import ciNormalPng from "../assets/character/ci-normal.png?url"
 
-import { TilemapHelpers, PhysicsHelpers, GameScene, Store } from "../helpers"
-import { GRAVITY, PHYSICS_STEP, PLAYER_LAYER, PLAYER_MASK } from "../globals"
+import { TilemapHelpers, PhysicsHelpers, GameScene } from "../helpers"
+import { GRAVITY, PLAYER_LAYER, PLAYER_MASK } from "../globals"
 
 
 // import ciRunJson from "../assets/character/ci-run.json?url";
@@ -22,15 +19,9 @@ export default class TiledTest extends GameScene {
 
     map!: Tilemaps.Tilemap;
     tileset!: Tilemaps.Tileset;
-    world: planck.World;
-    ecs: bitecs.IWorld;
-    store: Store
 
     constructor() {
-        super('tiled-test')
-        this.world = planck.World(Vec2(0, GRAVITY))
-        this.ecs = bitecs.createWorld()
-        this.store = new Store()
+        super('tiled-test', Vec2(0, GRAVITY))
     }
 
     preload() {
@@ -41,15 +32,11 @@ export default class TiledTest extends GameScene {
     }
 
     create() {
-        this.time.addEvent({
-            delay: PHYSICS_STEP * 1000.0, // milliseconds
-            loop: true,
-            callback: this.physicsUpdate,
-            callbackScope: this
-        })
+        super.create()
 
         this.map = this.make.tilemap({ key: 'level' })
         this.tileset = this.map.addTilesetImage('prototype-tiles', 'tileset')!
+        console.log(this.tileset.tileProperties)
         const layer = this.map.createLayer("tile-layer-1", this.tileset, 0, 0)!
 
         // console.log(this.map.images)
@@ -94,12 +81,11 @@ export default class TiledTest extends GameScene {
     }
 
     update(_time: number, _delta: number): void {
+        super.update(_time, _delta)
         PhysicsHelpers.debugRender(this)
     }
 
     physicsUpdate(): void {
-        if (this.world) {
-            this.world.step(PHYSICS_STEP)
-        }
+        super.physicsUpdate()
     }
 }

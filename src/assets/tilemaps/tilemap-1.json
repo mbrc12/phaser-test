@@ -80,6 +80,7 @@
                  "objectgroup":
                     {
                      "draworder":"index",
+                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -111,13 +112,20 @@
                      "visible":true,
                      "x":0,
                      "y":0
-                    }
+                    },
+                 "properties":[
+                        {
+                         "name":"whatever",
+                         "type":"string",
+                         "value":"Hello"
+                        }]
                 }, 
                 {
                  "id":1,
                  "objectgroup":
                     {
                      "draworder":"index",
+                     "id":2,
                      "name":"",
                      "objects":[
                             {

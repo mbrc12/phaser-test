@@ -52,7 +52,10 @@ export abstract class GameScene extends Scene {
     }
 
     protected registerSystem<T extends unknown[], U extends unknown[]>
-    (query: GameQuery<T>, resources: ResourceList<U>, system: RawSystem<T, U>, config?: SystemConfig) {
+    (query: GameQuery<T>, 
+     resources: ResourceList<U>, 
+     system: RawSystem<T, U>, 
+     config?: SystemConfig) {
 
         const modifiedConfig = { ...defaultSystemConfig, ...config }
 
@@ -68,7 +71,11 @@ export abstract class GameScene extends Scene {
 
 
     protected system<T extends unknown[], U extends unknown[]>
-    (components: StoredComponentList<T>, resources: ResourceList<U>, system: RawSystem<T, U>, config?: SystemConfig) {
+    (components: StoredComponentList<T>, 
+     resources: ResourceList<U>, 
+     system: RawSystem<T, U>, 
+     config?: SystemConfig) {
+
         this.registerSystem(this.registerQuery<T>(components), resources, system, config)
     }
 
