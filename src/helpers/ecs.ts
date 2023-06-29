@@ -11,11 +11,16 @@ export type GameQuery<T extends unknown[]> = {
 export type RawSystem<T extends unknown[], U extends unknown[]> = 
     (scene: GameScene, components: T, resources: U) => void
 
+// The first kind doesnt have any local data, the second one uses some local data
+// which is in the fields other than run.
+export type SystemSpec<T extends unknown[], U extends unknown[]> = 
+    RawSystem<T, U> | { run: RawSystem<T, U> }
+
 export type System<T extends unknown[], U extends unknown[]> = {
     query: GameQuery<T>,
     resources: ResourceList<U>,
     isStatic: boolean
-    callback: RawSystem<T, U>
+    callback: SystemSpec<T, U>
 }
 
 export class StoredComponent<T> {

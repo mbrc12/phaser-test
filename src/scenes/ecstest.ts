@@ -7,7 +7,8 @@ import { GameScene, KeyboardManager, PhysicsHelpers, setupKeyboardInput, StoredC
 
 // import bloomVert from "../assets/shaders/bloom-vert.glsl?raw"
 // import bloomFrag from "../assets/shaders/bloom-frag.glsl?raw"
-import vignetteFrag from "../assets/shaders/vignette-frag.glsl?raw"
+// import vignetteFrag from "../assets/shaders/vignette-frag.glsl?raw"
+import glitchFrag from "../assets/shaders/glitch.glsl?raw"
 
 import KeyCodes = Input.Keyboard.KeyCodes
 
@@ -151,8 +152,13 @@ function bodyKeySystem(_scene: GameScene, [body]: [planck.Body], [push]: [Push])
     }
 }
 
-function fpsSystem(scene: GameScene, [text]: [GameObjects.Text], []: []) {
-    text.setText("fps: " + scene.game.loop.actualFps.toFixed(0))
+const fpsSystem = {
+    ctr: 0,
+    
+    run(scene: GameScene, [text]: [GameObjects.Text], []: [])  {
+        this.ctr += 1
+        text.setText("fps: " + this.ctr + ":: " + scene.game.loop.actualFps.toFixed(0))
+    }
 }
 
 function setPush(_scene: GameScene, []: [], [keys, push]: [KeyboardManager<KT>, Push]) {
@@ -178,17 +184,16 @@ export class ShaderFX extends Phaser.Renderer.WebGL.Pipelines.PostFXPipeline {
         super({
             game,
             name: 'Shader',
-            fragShader: vignetteFrag,
+            fragShader: glitchFrag,
         })
-        console.log(vignetteFrag)
     }
 
     onPreRender(): void {
         this.resolution.x = this.game.canvas.width
         this.resolution.y = this.game.canvas.height
 
-        console.log(this.resolution.x, this.resolution.y)
         this.set2f('iResolution', this.resolution.x, this.resolution.y)
+        this.setTime('iTime')
     }
 }
 

@@ -2,7 +2,7 @@ import * as bitecs from "bitecs"
 import { Scene } from "phaser"
 import { Vec2, World } from "planck"
 import { PHYSICS_STEP } from "../globals"
-import { GameQuery, RawSystem, Resource, ResourceList, StoredComponent, StoredComponentList, System } from "./ecs"
+import { GameQuery, RawSystem, Resource, ResourceList, StoredComponent, StoredComponentList, System, SystemSpec } from "./ecs"
 import { Store } from "./store"
 
 export type SystemConfig = {
@@ -54,7 +54,7 @@ export abstract class GameScene extends Scene {
     protected registerSystem<T extends unknown[], U extends unknown[]>
     (query: GameQuery<T>, 
      resources: ResourceList<U>, 
-     system: RawSystem<T, U>, 
+     system: SystemSpec<T, U>, 
      config?: SystemConfig) {
 
         const modifiedConfig = { ...defaultSystemConfig, ...config }
@@ -73,7 +73,7 @@ export abstract class GameScene extends Scene {
     protected system<T extends unknown[], U extends unknown[]>
     (components: StoredComponentList<T>, 
      resources: ResourceList<U>, 
-     system: RawSystem<T, U>, 
+     system: SystemSpec<T, U>, 
      config?: SystemConfig) {
 
         this.registerSystem(this.registerQuery<T>(components), resources, system, config)
@@ -90,16 +90,19 @@ export abstract class GameScene extends Scene {
 
     runSystems(systems: System<any, any>[]): void {
         systems.forEach(({query, resources, isStatic, callback}) => {
+            
+            const run = ("run" in callback) ? callback.run.bind(callback) : callback;
+
             if (isStatic) {
                 const resourceList = resources.map((res) => res.get())
-                callback(this, [], resourceList)
+                run(this, [], resourceList)
                 return
             } 
 
             query.ask().forEach((eid) => {
                 const components = query.components.map((comp) => comp.get(eid))
                 const resourceList = resources.map((res) => res.get())
-                callback(this, components, resourceList)
+                run(this, components, resourceList)
             })
         })
     }
