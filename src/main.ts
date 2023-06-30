@@ -2,9 +2,8 @@ import { BG_COLOR, HEIGHT, WIDTH } from './globals';
 // import Main from './scenes/main';
 
 import { Game, WEBGL } from 'phaser';
+import ECSTest from './scenes/ecstest';
 // import TiledTest from './scenes/tiled-test';
-import ECSTest, { ShaderFX } from './scenes/ecstest';
-import TiledTest from './scenes/tiled-test';
 
 
 ///////////////// GAME SETUP ////////////////////////

@@ -1,6 +1,8 @@
+/*eslint-disable no-empty-pattern*/
+
 import * as bitecs from "bitecs"
-import { GameObjects, Input, Renderer } from "phaser"
-import { Polygon, Vec2, Body } from "planck"
+import { GameObjects, Input } from "phaser"
+import { Vec2, Body, Polygon } from "planck"
 import { Assets } from "../assets"
 import { DIAGNOSTICS_DEPTH, GRAVITY, HEIGHT, TREE_LAYER, TREE_MASK, WIDTH } from "../globals"
 import { GameScene, KeyboardManager, PhysicsHelpers, setupKeyboardInput, StoredComponent, Resource } from "../helpers"
@@ -27,7 +29,6 @@ type Push = {
     enabled: boolean
 }
 
-
 export default class ECSTest extends GameScene {
 
     cSprite: StoredComponent<GameObjects.Sprite>
@@ -53,7 +54,7 @@ export default class ECSTest extends GameScene {
 
     }
 
-    preload() {
+    preload(): void {
         this.load.image("tree", Assets.art.tree)
         this.load.audio("click", Assets.audio.click)
 
@@ -115,7 +116,7 @@ export default class ECSTest extends GameScene {
         }
 
         PhysicsHelpers.addWalls(this)
-        this.cameras.main.setPostPipeline("shader")
+        // this.cameras.main.setPostPipeline("shader")
 
         // this.cameras.main.setPostPipeline(new Renderer.WebGL.Pipelines.PostFXPipeline({
         //     game: this.game,
@@ -134,14 +135,16 @@ export default class ECSTest extends GameScene {
 
 // Systems
 
-function treeSystem(_scene: GameScene, [sprite, body]: [GameObjects.Sprite, planck.Body]) {
+function treeSystem(_scene: GameScene, [sprite, body]: [GameObjects.Sprite, planck.Body]): void {
     const {x, y} = body.getPosition()
 
     sprite.setPosition(x, y)
+    sprite.setFlipX(true)
     sprite.setRotation(body.getAngle())
+
 }
 
-function bodyKeySystem(_scene: GameScene, [body]: [planck.Body], [push]: [Push]) {
+function bodyKeySystem(_scene: GameScene, [body]: [planck.Body], [push]: [Push]): void {
     if (push.push) {
         console.log("pushed")
         const dx = Math.random() * 1000 - 500
@@ -161,7 +164,7 @@ const fpsSystem = {
     }
 }
 
-function setPush(_scene: GameScene, []: [], [keys, push]: [KeyboardManager<KT>, Push]) {
+function setPush(_scene: GameScene, []: [], [keys, push]: [KeyboardManager<KT>, Push]): void {
     const down = keys.space.down()
     if (push.enabled && down) {
         push.push = true

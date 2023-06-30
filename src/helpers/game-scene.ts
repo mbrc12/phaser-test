@@ -2,7 +2,7 @@ import * as bitecs from "bitecs"
 import { Scene } from "phaser"
 import { Vec2, World } from "planck"
 import { PHYSICS_STEP } from "../globals"
-import { GameQuery, RawSystem, Resource, ResourceList, StoredComponent, StoredComponentList, System, SystemSpec } from "./ecs"
+import { GameQuery, Resource, ResourceList, StoredComponent, StoredComponentList, System, SystemSpec } from "./ecs"
 import { Store } from "./store"
 
 export type SystemConfig = {
